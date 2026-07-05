@@ -1,5 +1,5 @@
 import pandas as pd
-from app.data_loader import load_data
+from processing.data_loader import load_data
 
 matches, deliveries = load_data()
 

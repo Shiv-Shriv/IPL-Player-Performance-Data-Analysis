@@ -1,35 +1,15 @@
 import pandas as pd
 
-matches = pd.read_csv("data/matches_updated_ipl_upto_2025.csv")
+matches = pd.read_csv("data/raw/matches_updated_ipl_upto_2025.csv")
 
-deliveries = pd.read_csv("data/deliveries_updated_ipl_upto_2025.csv")
-
-# print("Matches shape:", matches.shape)
-# print("Deliveries shape:", deliveries.shape)
-
-# print("\nMATCHES COLUMNS:")
-# print(matches.columns.tolist())
-
-# print("\nDELIVERIES COLUMNS:")
-# print(deliveries.columns.tolist())
+deliveries = pd.read_csv("data/raw/deliveries_updated_ipl_upto_2025.csv")
 
 deliveries["total_runs"] = (
     deliveries["batsman_runs"] +
     deliveries["extras"])
-      
-# print("\nFIRST 5 MATCHES:")
-# print(matches.head())
-
-# print("\nFIRST 5 DELIVERIES:") 
-# print(deliveries.head()) 
-
-# from app.player_page import get_player_stats
-
-# stats = get_player_stats("V Kohli")
-# print(stats)
 
 import streamlit as st
-from app.player_page import get_player_stats
+from core.player_page import get_player_stats
 
 st.set_page_config(page_title="IPL Player Data", layout="wide")
 
