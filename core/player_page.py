@@ -25,7 +25,7 @@ def get_player_stats(player_name):
         sixes = data[data["batsman_runs"] == 6].shape[0]
         boundaries = fours + sixes
         boundary_percent = round((boundaries / deliveries_faced) * 100, 2) if deliveries_faced > 0 else 0
-        boundary_ball_ratio = round(boundaries / deliveries_faced, 2) if deliveries_faced > 0 else 0
+        ball_boundary_ratio = round(deliveries_faced/boundaries, 2) if boundaries > 0 else 0
 
         return {
             "innings_played": innings_played,
@@ -37,7 +37,7 @@ def get_player_stats(player_name):
             "sixes": sixes,
             "boundaries": boundaries,
             "boundary_percent": boundary_percent,
-            "boundary_ball_ratio": boundary_ball_ratio
+            "ball_boundary_ratio": ball_boundary_ratio
         }
     
     def bowling_stats(data):

@@ -1,32 +1,26 @@
-import pandas as pd
-
-matches = pd.read_csv("data/raw/matches_updated_ipl_upto_2025.csv")
-
-deliveries = pd.read_csv("data/raw/deliveries_updated_ipl_upto_2025.csv")
-
-deliveries["total_runs"] = (
-    deliveries["batsman_runs"] +
-    deliveries["extras"])
-
 import streamlit as st
+import pandas as pd
 from core.player_page import get_player_stats
 from processing.player_search import contains_player_substring
 
-st.set_page_config(page_title="IPL Player Data", layout="wide")
-
-st.title("IPL Player Data")
+st.set_page_config(page_title="Player Statistics Analysis", layout="wide")
+st.title("Player Statistics Analysis")
 
 player_input = st.text_input("Search Player", placeholder="e.g. MS Dhoni, V Kohli")
 
+player_list = contains_player_substring(player_input)
+
 if(player_input != ""):
-    suggestions = contains_player_substring(player_input)
-    if(len(suggestions)==0):
+    if(len(player_list)==0):
         st.error(f"No data found for '{player_input}'. Check the spelling.")
+    elif(player_input==player_list[0]):
+        player_name = player_list[0]
+    
     else:
-        suggestions.insert(0, "Select a player..")
-        player_name = st.selectbox("Search Suggestions:", suggestions)
+        player_list.insert(0, "Select a player..")
+        player_name = st.selectbox("Search Suggestions:", player_list)
 
-
+    if(len(player_list)!=0):
         if (player_name!="Select a player.."):
 
             stats = get_player_stats(player_name)
@@ -93,4 +87,6 @@ if(player_input != ""):
                     st.metric("Strike Rate", rw["bowling_strike_rate"])
                     st.metric("Wickets/Match", rw["wickets_per_match"])
                     st.metric("Dot Ball %", f"{rw['dot_ball_percent']}%")
+
+
 
