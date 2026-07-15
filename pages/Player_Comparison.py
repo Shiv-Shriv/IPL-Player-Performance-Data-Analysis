@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 from core.player_page import get_player_stats
 from processing.player_search import contains_player_substring
+from core.comparison import higherstatcmp, lowerstatcmp, statcolor
 
 st.set_page_config(page_title="Player Statistical Analysis", layout="wide")
 st.title("Player Statistical Analysis")
@@ -70,50 +71,82 @@ if ((stats1!=None)and(stats2!=None)):
         with inner_tab1:
 
             left, right = st.columns(2)
+            b1 = stats1["batting"]["alltime"]
+            b2 = stats2["batting"]["alltime"]
 
             with left:
                 st.markdown(f"## {stats1['player_name']}")
-                b1 = stats1["batting"]["alltime"]
-                st.metric("Runs", b1["runs"])
-                st.metric("Average", b1["average"])
-                st.metric("Strike Rate", b1["strike_rate"])
-                st.metric("Boundaries", b1["boundaries"])
-                st.metric("Boundary %", f"{b1['boundary_percent']}%")
-                st.metric("Boundary/Ball Ratio", b1["ball_boundary_ratio"])
+                
+                runs_color1 = higherstatcmp(b1["runs"], b2["runs"])
+                avg_color1 = higherstatcmp(b1["average"], b2["average"])
+                sr_color1 = higherstatcmp(b1["strike_rate"], b2["strike_rate"])
+                boundaries_color1 = higherstatcmp(b1["boundaries"], b2["boundaries"])
+                bp_color1 = higherstatcmp(b1["boundary_percent"], b2["boundary_percent"])
+                bbr_color1 = lowerstatcmp(b1["ball_boundary_ratio"], b2["ball_boundary_ratio"])
+
+                st.markdown(statcolor("Runs", b1["runs"], runs_color1), unsafe_allow_html=True)
+                st.markdown(statcolor("Average", b1["average"], avg_color1), unsafe_allow_html=True)
+                st.markdown(statcolor("Strike Rate", b1["strike_rate"], sr_color1), unsafe_allow_html=True)
+                st.markdown(statcolor("Boundaries", b1["boundaries"], boundaries_color1), unsafe_allow_html=True)
+                st.markdown(statcolor("Boundary %", f"{b1['boundary_percent']}%", bp_color1), unsafe_allow_html=True)
+                st.markdown(statcolor("Ball/Boundary Ratio", b1["ball_boundary_ratio"], bbr_color1), unsafe_allow_html=True)
 
             with right:
                 st.markdown(f"## {stats2['player_name']}")
-                b2 = stats2["batting"]["alltime"]
-                st.metric("Runs", b2["runs"])
-                st.metric("Average", b2["average"])
-                st.metric("Strike Rate", b2["strike_rate"])
-                st.metric("Boundaries", b2["boundaries"])
-                st.metric("Boundary %", f"{b2['boundary_percent']}%")
-                st.metric("Boundary/Ball Ratio", b2["ball_boundary_ratio"])
+
+                runs_color2 = higherstatcmp(b2["runs"], b1["runs"])
+                avg_color2 = higherstatcmp(b2["average"], b1["average"])
+                sr_color2 = higherstatcmp(b2["strike_rate"], b1["strike_rate"])
+                boundaries_color2 = higherstatcmp(b2["boundaries"], b1["boundaries"])
+                bp_color2 = higherstatcmp(b2["boundary_percent"], b1["boundary_percent"])
+                bbr_color2 = lowerstatcmp(b2["ball_boundary_ratio"], b1["ball_boundary_ratio"])
+
+                st.markdown(statcolor("Runs", b2["runs"], runs_color2), unsafe_allow_html=True)
+                st.markdown(statcolor("Average", b2["average"], avg_color2), unsafe_allow_html=True)
+                st.markdown(statcolor("Strike Rate", b2["strike_rate"], sr_color2), unsafe_allow_html=True)
+                st.markdown(statcolor("Boundaries", b2["boundaries"], boundaries_color2), unsafe_allow_html=True)
+                st.markdown(statcolor("Boundary %", f"{b2['boundary_percent']}%", bp_color2), unsafe_allow_html=True)
+                st.markdown(statcolor("Ball/Boundary Ratio", b2["ball_boundary_ratio"], bbr_color2), unsafe_allow_html=True)
         
         with inner_tab2:
             
             left, right = st.columns(2)
+            br1 = stats1["batting"]["recent"]
+            br2 = stats2["batting"]["recent"]
 
             with left:
                 st.markdown(f"## {stats1['player_name']}")
-                br1 = stats1["batting"]["recent"]
-                st.metric("Runs", br1["runs"])
-                st.metric("Average", br1["average"])
-                st.metric("Strike Rate", br1["strike_rate"])
-                st.metric("Boundaries", br1["boundaries"])
-                st.metric("Boundary %", f"{br1['boundary_percent']}%")
-                st.metric("Boundary/Ball Ratio", br1["ball_boundary_ratio"])
+                
+                runs_color1 = higherstatcmp(br1["runs"], br2["runs"])
+                avg_color1 = higherstatcmp(br1["average"], br2["average"])
+                sr_color1 = higherstatcmp(br1["strike_rate"], br2["strike_rate"])
+                boundaries_color1 = higherstatcmp(br1["boundaries"], br2["boundaries"])
+                bp_color1 = higherstatcmp(br1["boundary_percent"], br2["boundary_percent"])
+                bbr_color1 = lowerstatcmp(br1["ball_boundary_ratio"], br2["ball_boundary_ratio"])
+
+                st.markdown(statcolor("Runs", br1["runs"], runs_color1), unsafe_allow_html=True)
+                st.markdown(statcolor("Average", br1["average"], avg_color1), unsafe_allow_html=True)
+                st.markdown(statcolor("Strike Rate", br1["strike_rate"], sr_color1), unsafe_allow_html=True)
+                st.markdown(statcolor("Boundaries", br1["boundaries"], boundaries_color1), unsafe_allow_html=True)
+                st.markdown(statcolor("Boundary %", f"{br1['boundary_percent']}%", bp_color1), unsafe_allow_html=True)
+                st.markdown(statcolor("Ball/Boundary Ratio", br1["ball_boundary_ratio"], bbr_color1), unsafe_allow_html=True)
 
             with right:
                 st.markdown(f"## {stats2['player_name']}")
-                br2 = stats2["batting"]["recent"]
-                st.metric("Runs", br2["runs"])
-                st.metric("Average", br2["average"])
-                st.metric("Strike Rate", br2["strike_rate"])
-                st.metric("Boundaries", br2["boundaries"])
-                st.metric("Boundary %", f"{br2['boundary_percent']}%")
-                st.metric("Boundary/Ball Ratio", br2["ball_boundary_ratio"])
+                
+                runs_color2 = higherstatcmp(br2["runs"], br1["runs"])
+                avg_color2 = higherstatcmp(br2["average"], br1["average"])
+                sr_color2 = higherstatcmp(br2["strike_rate"], br1["strike_rate"])
+                boundaries_color2 = higherstatcmp(br2["boundaries"], br1["boundaries"])
+                bp_color2 = higherstatcmp(br2["boundary_percent"], br1["boundary_percent"])
+                bbr_color2 = lowerstatcmp(br2["ball_boundary_ratio"], br1["ball_boundary_ratio"])
+
+                st.markdown(statcolor("Runs", br2["runs"], runs_color2), unsafe_allow_html=True)
+                st.markdown(statcolor("Average", br2["average"], avg_color2), unsafe_allow_html=True)
+                st.markdown(statcolor("Strike Rate", br2["strike_rate"], sr_color2), unsafe_allow_html=True)
+                st.markdown(statcolor("Boundaries", br2["boundaries"], boundaries_color2), unsafe_allow_html=True)
+                st.markdown(statcolor("Boundary %", f"{br2['boundary_percent']}%", bp_color2), unsafe_allow_html=True)
+                st.markdown(statcolor("Ball/Boundary Ratio", br2["ball_boundary_ratio"], bbr_color2), unsafe_allow_html=True)
 
 
 
@@ -122,44 +155,72 @@ if ((stats1!=None)and(stats2!=None)):
 
         with inner_tab1:
             left, right = st.columns(2)
+            bw1 = stats1["bowling"]["alltime"]
+            bw2 = stats2["bowling"]["alltime"]
 
             with left:
                 st.markdown(f"## {stats1['player_name']}")
-                bw1 = stats1["bowling"]["alltime"]
-                st.metric("Wickets Taken", bw1["wickets"])
-                st.metric("Economy", bw1["economy"])
-                st.metric("Strike Rate", bw1["bowling_strike_rate"])
-                st.metric("Wickets/Match", bw1["wickets_per_match"])
-                st.metric("Dot Ball %", f"{bw1['dot_ball_percent']}%")
+
+                wickets_color1 = higherstatcmp(bw1["wickets"], bw2["wickets"])
+                economy_color1 = lowerstatcmp(bw1["economy"], bw2["economy"])
+                bsr_color1 = lowerstatcmp(bw1["bowling_strike_rate"], bw2["bowling_strike_rate"])
+                wpm_color1 = higherstatcmp(bw1["wickets_per_match"], bw2["wickets_per_match"])
+                dbp_color1 = higherstatcmp(bw1["dot_ball_percent"], bw2["dot_ball_percent"])
+                
+                st.markdown(statcolor("Wickets", bw1["wickets"], wickets_color1), unsafe_allow_html=True)
+                st.markdown(statcolor("Economy", bw1["economy"], economy_color1), unsafe_allow_html=True)
+                st.markdown(statcolor("Strike Rate", bw1["bowling_strike_rate"], bsr_color1), unsafe_allow_html=True)
+                st.markdown(statcolor("Wickets/Match", bw1["wickets_per_match"], wpm_color1), unsafe_allow_html=True)
+                st.markdown(statcolor("Dot Ball %", f"{bw1['dot_ball_percent']}%", dbp_color1), unsafe_allow_html=True)
                 
 
             with right:
                 st.markdown(f"## {stats2['player_name']}")
-                bw2 = stats2["bowling"]["alltime"]
-                st.metric("Wickets Taken", bw2["wickets"])
-                st.metric("Economy", bw2["economy"])
-                st.metric("Strike Rate", bw2["bowling_strike_rate"])
-                st.metric("Wickets/Match", bw2["wickets_per_match"])
-                st.metric("Dot Ball %", f"{bw2['dot_ball_percent']}%")
+                
+                wickets_color2 = higherstatcmp(bw2["wickets"], bw1["wickets"])
+                economy_color2 = lowerstatcmp(bw2["economy"], bw1["economy"])
+                bsr_color2 = lowerstatcmp(bw2["bowling_strike_rate"], bw1["bowling_strike_rate"])
+                wpm_color2 = higherstatcmp(bw2["wickets_per_match"], bw1["wickets_per_match"])
+                dbp_color2 = higherstatcmp(bw2["dot_ball_percent"], bw1["dot_ball_percent"])
+                
+                st.markdown(statcolor("Wickets", bw2["wickets"], wickets_color2), unsafe_allow_html=True)
+                st.markdown(statcolor("Economy", bw2["economy"], economy_color2), unsafe_allow_html=True)
+                st.markdown(statcolor("Strike Rate", bw2["bowling_strike_rate"], bsr_color2), unsafe_allow_html=True)
+                st.markdown(statcolor("Wickets/Match", bw2["wickets_per_match"], wpm_color2), unsafe_allow_html=True)
+                st.markdown(statcolor("Dot Ball %", f"{bw2['dot_ball_percent']}%", dbp_color2), unsafe_allow_html=True)
 
         with inner_tab2:
             left, right = st.columns(2)
+            bwr1 = stats1["bowling"]["recent"]
+            bwr2 = stats2["bowling"]["recent"]
 
             with left:
                 st.markdown(f"## {stats1['player_name']}")
-                bwr1 = stats1["bowling"]["recent"]
-                st.metric("Wickets Taken", bwr1["wickets"])
-                st.metric("Economy", bwr1["economy"])
-                st.metric("Strike Rate", bwr1["bowling_strike_rate"])
-                st.metric("Wickets/Match", bwr1["wickets_per_match"])
-                st.metric("Dot Ball %", f"{bwr1['dot_ball_percent']}%")
+                
+                wickets_color1 = higherstatcmp(bwr1["wickets"], bwr2["wickets"])
+                economy_color1 = lowerstatcmp(bwr1["economy"], bwr2["economy"])
+                bsr_color1 = lowerstatcmp(bwr1["bowling_strike_rate"], bwr2["bowling_strike_rate"])
+                wpm_color1 = higherstatcmp(bwr1["wickets_per_match"], bwr2["wickets_per_match"])
+                dbp_color1 = higherstatcmp(bwr1["dot_ball_percent"], bwr2["dot_ball_percent"])
+                
+                st.markdown(statcolor("Wickets", bwr1["wickets"], wickets_color1), unsafe_allow_html=True)
+                st.markdown(statcolor("Economy", bwr1["economy"], economy_color1), unsafe_allow_html=True)
+                st.markdown(statcolor("Strike Rate", bwr1["bowling_strike_rate"], bsr_color1), unsafe_allow_html=True)
+                st.markdown(statcolor("Wickets/Match", bwr1["wickets_per_match"], wpm_color1), unsafe_allow_html=True)
+                st.markdown(statcolor("Dot Ball %", f"{bwr1['dot_ball_percent']}%", dbp_color1), unsafe_allow_html=True)
                 
 
             with right:
                 st.markdown(f"## {stats2['player_name']}")
-                bwr2 = stats2["bowling"]["recent"]
-                st.metric("Wickets Taken", bwr2["wickets"])
-                st.metric("Economy", bwr2["economy"])
-                st.metric("Strike Rate", bwr2["bowling_strike_rate"])
-                st.metric("Wickets/Match", bwr2["wickets_per_match"])
-                st.metric("Dot Ball %", f"{bwr2['dot_ball_percent']}%")
+                
+                wickets_color2 = higherstatcmp(bwr2["wickets"], bwr1["wickets"])
+                economy_color2 = lowerstatcmp(bwr2["economy"], bwr1["economy"])
+                bsr_color2 = lowerstatcmp(bwr2["bowling_strike_rate"], bwr1["bowling_strike_rate"])
+                wpm_color2 = higherstatcmp(bwr2["wickets_per_match"], bwr1["wickets_per_match"])
+                dbp_color2 = higherstatcmp(bwr2["dot_ball_percent"], bwr1["dot_ball_percent"])
+                
+                st.markdown(statcolor("Wickets", bwr2["wickets"], wickets_color2), unsafe_allow_html=True)
+                st.markdown(statcolor("Economy", bwr2["economy"], economy_color2), unsafe_allow_html=True)
+                st.markdown(statcolor("Strike Rate", bwr2["bowling_strike_rate"], bsr_color2), unsafe_allow_html=True)
+                st.markdown(statcolor("Wickets/Match", bwr2["wickets_per_match"], wpm_color2), unsafe_allow_html=True)
+                st.markdown(statcolor("Dot Ball %", f"{bwr2['dot_ball_percent']}%", dbp_color2), unsafe_allow_html=True)

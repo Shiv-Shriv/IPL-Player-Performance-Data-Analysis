@@ -49,7 +49,7 @@ if(player_input != ""):
                 st.metric("6s", b["sixes"])
                 st.metric("Boundaries", b["boundaries"])
                 st.metric("Boundary %", f"{b['boundary_percent']}%")
-                st.metric("Boundary/Ball Ratio", b["ball_boundary_ratio"])
+                st.metric("Ball/Boundary Ratio", b["ball_boundary_ratio"])
 
             with col2:
                 st.markdown("### Recent (Last 3 Years)")
@@ -63,7 +63,7 @@ if(player_input != ""):
                 st.metric("6s", r["sixes"])
                 st.metric("Boundaries", r["boundaries"])
                 st.metric("Boundary %", f"{r['boundary_percent']}%")
-                st.metric("Boundary/Ball Ratio", r["ball_boundary_ratio"])
+                st.metric("Ball/Boundary Ratio", r["ball_boundary_ratio"])
 
         with tab2:
             col1, col2 = st.columns(2)
