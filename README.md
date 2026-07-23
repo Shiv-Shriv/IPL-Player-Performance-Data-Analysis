@@ -19,8 +19,8 @@ The analysis includes, all-time as well as recent, player-by-player statistical 
 
 - Python
 - Pandas
-- NumPy
-- Matplotlib
+- NumPy (To be added)
+- Matplotlib (To be added)
 - Streamlit
 
 ## Dataset
