@@ -1,7 +1,7 @@
 # IPL Player Performance Data Analysis
 
 An end-to-end, in-depth data analysis project exploring all-time and recent IPL player performance using Python and Pandas.
-The analysis includes, all-time as well as recent, player-by-player statistical information, player comparisons, reliability metric and an impact metric.
+The analysis includes, all-time as well as recent, player-by-player statistical information, player comparisons, custom-made reliability and impact metrics for more meaningful analysis beyond just numbers and statistics.
 
 ## Objectives
 
