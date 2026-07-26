@@ -29,6 +29,8 @@ if(player_input != ""):
 
         
         st.markdown(f"## {stats['player_name']}")
+        if(stats["category"]!="Unclassified"):
+            st.markdown(f"**{stats["category"]}**")
         st.markdown(f"**Player of the Match Awards:** {stats['potm']}")
         st.divider()
 

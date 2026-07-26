@@ -1,5 +1,6 @@
 import pandas as pd
 from processing.data_loader import load_data
+from processing.categorization import get_player_category
 
 matches, deliveries = load_data()
 
@@ -12,6 +13,8 @@ def get_player_stats(player_name):
 
     recent_batter_data = batter_data[batter_data["date"].dt.year.isin(recent_years)]
     recent_bowler_data = bowler_data[bowler_data["date"].dt.year.isin(recent_years)]
+
+    player_category = get_player_category(player_name)
 
     def batting_stats(data):
         balls_faced = data[data["isWide"].isna()]
@@ -68,6 +71,7 @@ def get_player_stats(player_name):
     return {
         "player_name": player_name,
         "potm": potm_count,
+        "category" : player_category,
         "batting": {
             "alltime": batting_stats(batter_data),
             "recent": batting_stats(recent_batter_data)
